@@ -10,7 +10,7 @@ public class AIControls : MonoBehaviour
     public float shootingCooldown;
     public float detectRange;
     public float stoppingRange;
-    public float switchTargetDistance;
+    public float switchTargetRange;
     public float switchDistance;
 
     public float AIDelay;
@@ -46,22 +46,64 @@ public class AIControls : MonoBehaviour
 
     void FixedUpdate()
     {
+        t -= Time.deltaTime;   
+
         Vector3 currentRotation = rb.rotation.eulerAngles;
         rb.rotation = Quaternion.Euler(0f, currentRotation.y, 0f);
         
+        if(Vector3.Distance(transform.position, target) < switchTargetRange) 
+        {
+            float randomx = Random.Range(-switchDistance, switchDistance);
+            float randomz = Random.Range(-switchDistance, switchDistance);
+
+            target += new Vector3(randomx, 0f, randomz);
+        }
 
         // Etsitään pelaajia
         if(targetObject != null)
         {
-            target = targetObject.transform.position;
+            if(Vector3.Distance(transform.position, targetObject.transform.position) < detectRange) 
+            {
+                if(!Physics.Linecast(transform.position, targetObject.transform.position, obstacleMask)) 
+                {
+                    target = targetObject.transform.position;
+
+                    // Ampuminen
+                    if(t < 0) 
+                    {
+                        GameObject proj = Instantiate(projectile, muzzle.position, muzzle.rotation);
+                        proj.GetComponent<Projectile>().shooterTag = tag;
+                        t = shootingCooldown;
+                    }
+            
+
+                    if(Vector3.Distance(target, transform.position) < stoppingRange) 
+                    {
+                        nextState = State.stop;
+                    }
+                }
+            }
+
         }
        else
         {
             targetObject = GameObject.FindGameObjectWithTag("Player");
         }
 
+        Debug.DrawLine(target, target + new Vector3(0f, 5f, 0f), Color.green);
+
         float angle = Vector3.SignedAngle(transform.forward, target - transform.position, Vector3.up);
         
+        if(AIt < 0) 
+        {
+            state = nextState;
+            AIt = AIDelay;
+        }
+        else 
+        {
+            AIt -= Time.deltaTime;
+        }
+
         // Tilakone
         if(state ==State.forward)
         {
@@ -81,20 +123,33 @@ public class AIControls : MonoBehaviour
         }
         else if(state == State.left) 
         {
-           stringState = "left"; 
+            stringState = "left";
+            Turning(-1f);
+            Move(1f);
         }
         else if(state == State.right) 
         {
             stringState = "right";
+            Turning(1f);
+            Move(1f);
         }
         else if(state == State.back) 
         {
             stringState = "back";
+            Move(-1f);
+            nextState = State.forward;
         }
         else if(state == State.stop) 
         {
             stringState = "stop";
+            Move(0f);
+            nextState = State.forward;
         }
+            
+        Vector3 targetDirection = target - turret.position;
+        targetDirection.y = 0f;
+        Vector3 turningDirection = Vector3.RotateTowards(turret.forward, targetDirection, turretTurningSpeed * Time.deltaTime, 0f);
+        turret.rotation = Quaternion.LookRotation(turningDirection);
     }
 
     private void Move(float input)
@@ -107,5 +162,54 @@ public class AIControls : MonoBehaviour
     {
         Vector3 turning = Vector3.up * input * turningSpeed;
         rb.angularVelocity = turning;
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        if(!other.gameObject.CompareTag("Obstacle") && !other.gameObject.CompareTag("Wall")) 
+        {
+            return;
+        }
+
+        RaycastHit leftHit;
+        RaycastHit rightHit;
+
+        float leftLength = 0f;
+        float rightLength = 0f;
+
+        if(Physics.Raycast(transform.position, transform.forward + transform.right * -1, out leftHit, Mathf.Infinity, obstacleMask))  
+        {
+            leftLength = leftHit.distance;
+        }
+        if(Physics.Raycast(transform.position, transform.forward + transform.right, out rightHit, Mathf.Infinity, obstacleMask))  
+        {
+            rightLength = rightHit.distance;
+        }
+
+        if(leftLength > rightLength) 
+        {
+            state = State.left;
+            target= leftHit.point;
+        }
+        else
+        {
+            state = State.right;
+            target = rightHit.point;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) 
+    {
+        nextState = State.forward;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(!collision.gameObject.CompareTag("Obstacle") && !collision.gameObject.CompareTag("Wall")) 
+        {
+            return;
+        }
+
+        state = State.back;
     }
 }
