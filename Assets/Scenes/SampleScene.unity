@@ -821,6 +821,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1726421661}
   - component: {fileID: 1726421662}
+  - component: {fileID: 1726421663}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -866,6 +867,22 @@ MonoBehaviour:
   maxSize: 4
   block: {fileID: 3273373975888455982, guid: e4e09d460734e2a40a06c5c3e5a3e18e, type: 3}
   ground: {fileID: 1072346732}
+--- !u!114 &1726421663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726421660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42beb2637c8a2e106bb2669694f062b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  enemy: {fileID: 0}
+  area: {fileID: 0}
+  range: 2
 --- !u!1 &1795344456
 GameObject:
   m_ObjectHideFlags: 0

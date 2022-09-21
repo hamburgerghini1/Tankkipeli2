@@ -355,6 +355,7 @@
 "Assets/Scripts/PlayerControls.cs"
 "Assets/Scripts/Projectile.cs"
 "Assets/Scripts/SpawnBlocks.cs"
+"Assets/Scripts/Spawner.cs"
 -langversion:9.0
 
 /deterministic
