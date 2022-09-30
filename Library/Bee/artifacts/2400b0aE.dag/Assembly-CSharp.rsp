@@ -360,6 +360,7 @@
 "Assets/Scripts/Projectile.cs"
 "Assets/Scripts/SpawnBlocks.cs"
 "Assets/Scripts/Spawner.cs"
+"Assets/Scripts/UIController.cs"
 -langversion:9.0
 
 /deterministic

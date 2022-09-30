@@ -158,6 +158,7 @@ MonoBehaviour:
   lives: 3
   enemyStartingAmount: 2
   maxEnemiesAmount: 6
+  ui: {fileID: 1287979809}
 --- !u!4 &42861018
 Transform:
   m_ObjectHideFlags: 0
@@ -342,7 +343,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Score  : 100'
+  m_Text: 'Score: 100'
 --- !u!222 &554296402
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -614,7 +615,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Health : 3/3'
+  m_Text: 'Health: 3/3'
 --- !u!222 &723444178
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -930,7 +931,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Lives : 3/3'
+  m_Text: 'Lives: 3/3'
 --- !u!222 &1030045443
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1049,6 +1050,7 @@ GameObject:
   - component: {fileID: 1287979807}
   - component: {fileID: 1287979806}
   - component: {fileID: 1287979805}
+  - component: {fileID: 1287979809}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1138,6 +1140,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1287979809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287979804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a349972ebb6880a89ef3ee23f3baec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 554296401}
+  healthText: {fileID: 723444177}
+  livesText: {fileID: 1030045442}
 --- !u!1 &1605485437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,6 +1324,7 @@ MonoBehaviour:
   player: {fileID: 8905109401672360073, guid: 363656f2a995a22b4ab44c0b8cc613b8, type: 3}
   enemy: {fileID: 7641730320113700644, guid: aaca6557972fd2448a5d66b7ece70351, type: 3}
   area: {fileID: 1072346732}
+  spawnHeight: 0.5
   range: 2
 --- !u!1 &1795344456
 GameObject:

@@ -45,6 +45,7 @@
      <Compile Include="Assets/Scripts/Follow.cs" />
      <Compile Include="Assets/Scripts/GameController.cs" />
      <Compile Include="Assets/Scripts/AIControls.cs" />
+     <Compile Include="Assets/Scripts/UIController.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/home/tommi/Unity/Hub/Editor/2021.3.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
