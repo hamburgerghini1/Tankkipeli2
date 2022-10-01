@@ -71,7 +71,7 @@ public class UIController : MonoBehaviour
 
     public void ShowEndScreen()
     {
-        endScore.text = "Your Score: " + score;
+        endScore.text = "Pisteesi: " + score;
         endScreen.SetActive(true);
     }
 
