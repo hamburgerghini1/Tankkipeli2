@@ -47,13 +47,15 @@ public class GameController : MonoBehaviour
     {
         if(currentLives > 0)
         {
-            if(Input.GetButtonDown("Restart"))
+            if(player == null)
             {
-                if(player == null)
+                ui.ShowRespawnScreen();
+                if(Input.GetButtonDown("Restart"))
                 {
                     player = spawner.SpawnPlayer();
                     currentLives --;
                     ui.SetLives(currentLives, lives);
+                    ui.HideRespawnScreen();
                 }
             }
 
